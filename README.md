@@ -141,6 +141,9 @@ Audio example：
   Your browser does not support the audio element.
 </audio>
 
+<audio controls src="output_audio/tts_survy_A02.mp3"></audio>
+
+
 Compare:
 
 ![alt text](pic/waveform.png)
