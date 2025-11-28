@@ -1,4 +1,3 @@
-D:\LiZhen\Github\Voice_Clone\dataset_sliced\voice_sample_004.wav|Jack|EN|from UCI MN.
 D:\LiZhen\Github\Voice_Clone\dataset_sliced\voice_sample_008.wav|Jack|EN|excited to introduce you with a modular wireless music amplifier.
 D:\LiZhen\Github\Voice_Clone\dataset_sliced\voice_sample_009.wav|Jack|EN|So what is a modular...
 D:\LiZhen\Github\Voice_Clone\dataset_sliced\voice_sample_035.wav|Jack|EN|taken over the market share of why they had a phone.
