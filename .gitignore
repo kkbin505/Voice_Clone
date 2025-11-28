@@ -4,6 +4,8 @@ auto_label.py
 
 filelist.txt
 
+raw_audio/voice_sample.wav
+
 *.wav
 
 Reference/
