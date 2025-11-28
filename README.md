@@ -138,7 +138,6 @@ Audio example：
 
 <audio controls>
   <source src="output_audio/tts_survy_A02.mp3" type="audio/mp3">
-  Your browser does not support the audio element.
 </audio>
 
 <audio controls src="output_audio/tts_survy_A02.mp3"></audio>
