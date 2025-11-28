@@ -143,7 +143,7 @@ Audio example：
 
 Compare:
 
-![alt text](pic\waveform.png)
+![alt text](pic/waveform.png)
 
 1. References
 
