@@ -140,7 +140,9 @@ Audio example：
   <source src="output_audio/tts_survy_A02.mp3" type="audio/mp3">
 </audio>
 
-<audio controls src="output_audio/tts_survy_A02.mp3"></audio>
+
+[Play audio](./output_audio/tts_survy_A02.mp3)
+
 
 
 Compare:
