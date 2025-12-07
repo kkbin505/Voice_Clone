@@ -177,12 +177,14 @@ Another challenge is setting up the toolchain. I learned how to use Conda to man
 
 Audio example：
 
+
 <audio controls>
-  <source src="output_audio/Few_shot_TTS_audio.wav" type="audio/wav">
+  <source src="https://raw.githubusercontent.com/kkbin505/Voice_Clone/main/output_audio/Few_shot_TTS_audio.wav" type="audio/wav">
+  你的浏览器不支持 audio 标签。
 </audio>
 
 <audio controls>
-  <source src="output_audio/Zero-shot_TTS_audio.wavv" type="audio/wav">
+  <source src="https://raw.githubusercontent.com/kkbin505/Voice_Clone/main/output_audio/Zero-shot_TTS_audio.wav" type="audio/wav">
 </audio>
 
 
@@ -194,10 +196,15 @@ Compare:
 1. References
 
 [1] https://github.com/RVC-Boss/GPT-SoVITS
+
 [2] https://en.wikipedia.org/wiki/Retrieval-based_Voice_Conversion
+
 [3] Tacotron 2: "Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions"
+
 [4] FastSpeech 2: "FastSpeech 2: Fast and High-Quality End-to-End Text to Speech"
+
 [5] Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech
+
 [6] VALL-E: "Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers" 
 
 
