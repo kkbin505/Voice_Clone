@@ -1,23 +1,22 @@
 ### Voice_Clone
-Voice clone demo. In this repo, I used a model called GPT-SoVITS to clone my own voice. I will cover a little about literature and then we will go a step by step tutoria how I cloned my voice. I wanted to understand it like a complex machine, to see how all the parts work together.
+Voice clone demo. In this repo, I used a model called GPT-SoVITS [1] to clone my own voice. I will cover a little about literature and then we will go a step by step tutoria how I cloned my voice. I wanted to understand it like a complex machine, to see how all the parts work together.
 
 
 ## Literature Review: Advances in Voice Cloning and Zero-Shot TTS
 
 # Overview
-Voice cloning, formally known as Multi-Speaker Text-to-Speech (TTS) or Zero-Shot TTS, aims to synthesize speech in the voice of a target speaker using limited reference audio (ranging from a few seconds to a few minutes).
+Voice cloning, formally known as Multi-Speaker Text-to-Speech (TTS) or Zero-Shot TTS, aims to synthesize speech in the voice of a target speaker using limited reference audio (ranging from a few seconds to a few minutes). 
 
 # Technological Evolution
 The field has evolved rapidly through three distinct paradigms over the last few years:
 
 Phase I: Voice Conversion / RVC 
-While Retrieval-based approaches (like RVC) achieve high fidelity by retrieving and reconstructing acoustic features from a reference database, they are fundamentally Speech-to-Speech (STS) systems that require source audio input.
-
+While Retrieval-based approaches (like RVC) achieve high fidelity by retrieving and reconstructing acoustic features from a reference database, they are fundamentally Speech-to-Speech (STS) systems that require source audio input. [2]
 
 
 Phase II: Cascaded Systems & RNNs (2017–2019)
 
-Phase II of voice cloning, labeled as the Cascaded Systems & RNNs Era (2017–2019), marked the initial major adoption of deep learning in Text-to-Speech (TTS) and established the foundational two-stage pipeline for neural synthesis. 
+Phase II of voice cloning, labeled as the Cascaded Systems & RNNs Era (2017–2019), marked the initial major adoption of deep learning in Text-to-Speech (TTS) and established the foundational two-stage pipeline for neural synthesis. [3]
 
 The most famous example is Tacotron 2 from Google. I think a good way to understand it is like a two-step factory process:
 
@@ -38,8 +37,9 @@ Engineers saw the problems with the cascaded systems and designed direct solutio
 
 Here are some of the key improvements from the newer models:
 
-* FastSpeech 2: The main idea of this model is to stop generating audio sample-by-sample. Instead, it predicts how long each sound (phoneme) in the text should be before it generates the spectrogram. This allows it to generate the whole mel-spectrogram picture all at once, in parallel, which is much faster. It also has a special part called a "Variance Adaptor." This module adds more realistic details like pitch, energy, and duration to the speech. This gives the user more control to change how the final voice sounds.
-* VITS (Variational Inference with adversarial learning for Text-to-Speech): This model was a major improvement. The creators of VITS had a very smart idea: why not make it just one big model instead of two separate steps? VITS is an "end-to-end" model that combines the text-to-picture and picture-to-sound jobs into a single network, making a separate vocoder unnecessary. From a systems view, this is a big deal. It is like replacing two separate machines on an assembly line with one integrated machine that does both jobs. This is always more efficient, and the final audio quality is even better. To do this, it uses some very advanced AI methods like Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs).
+1. FastSpeech 2: The main idea of this model is to stop generating audio sample-by-sample. Instead, it predicts how long each sound (phoneme) in the text should be before it generates the spectrogram. This allows it to generate the whole mel-spectrogram picture all at once, in parallel, which is much faster. It also has a special part called a "Variance Adaptor." This module adds more realistic details like pitch, energy, and duration to the speech. This gives the user more control to change how the final voice sounds. [4]
+2. 
+3. VITS (Variational Inference with adversarial learning for Text-to-Speech): This model was a major improvement. The creators of VITS had a very smart idea: why not make it just one big model instead of two separate steps? VITS is an "end-to-end" model that combines the text-to-picture and picture-to-sound jobs into a single network, making a separate vocoder unnecessary. From a systems view, this is a big deal. It is like replacing two separate machines on an assembly line with one integrated machine that does both jobs. This is always more efficient, and the final audio quality is even better. To do this, it uses some very advanced AI methods like Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs). [5]
 
 These models made the text-to-spectrogram pipeline much better, but soon researchers integrates the pipeline into a single end-to-end model.
 
@@ -49,7 +49,7 @@ A New Paradigm: Speech as a Language Modeling Problem
 
 This next part I think is a paradigm shift. While earlier models were trying to make the same system faster (text -> spectrogram -> audio), researchers suddenly changed the whole idea. Everyone knows about Large Language Models (LLMs) like GPT that are very good at creating text. So, researchers started to apply the exact same idea to create audio. They threw out the spectrogram pipeline and started thinking about sound like a language.
 
-The most famous model that does this is VALL-E from Microsoft. The core innovation of VALL-E is that it does not create a mel-spectrogram "picture" at all. Instead, it uses another AI model called a neural audio codec to turn audio into a sequence of discrete numbers, which they call "codes" or "tokens." This idea of turning audio into a discrete, language-like representation was revolutionary. Just like we can break down a sentence into a sequence of words, VALL-E breaks down a sound into a sequence of "sound-words."
+The most famous model that does this is VALL-E from Microsoft. The core innovation of VALL-E is that it does not create a mel-spectrogram "picture" at all. Instead, it uses another AI model called a neural audio codec to turn audio into a sequence of discrete numbers, which they call "codes" or "tokens." This idea of turning audio into a discrete, language-like representation was revolutionary. Just like we can break down a sentence into a sequence of words, VALL-E breaks down a sound into a sequence of "sound-words." [6]
 
 This new approach gives VALL-E some amazing abilities:
 
@@ -61,7 +61,7 @@ Because VALL-E is so big, we need a practical model that uses these new ideas bu
  
 ## GPT-SoVITS
 
-Concept: A hybrid approach combining the strengths of LLMs and VITS.
+Concept: A hybrid approach combining the strengths of LLMs and VITS. [1]
 
 Architecture: Uses a GPT model to predict prosody/semantic features and a VITS decoder to generate the final waveform.
 
@@ -100,6 +100,12 @@ Although not a manual step in my outline, the system automatically ran feature e
 • Acoustic Features: A Mel-spectrogram extractor was also used to derive the necessary low-level acoustic features.
 
 # Step 4 & 5: Training the Model (Sequential Fine-Tuning)
+
+There are 2 ways in the model to train the model:
+1. Few-Shot Cloning
+2. Zero-Shot Cloning
+
+Few-Shot Cloning:
 This constituted the core training phase, utilizing transfer learning from a massive pre-trained model (trained on 2000+ hours of multilingual data). Due to my hardware constraints, I implemented specific optimizations:
 • Hardware Configuration: I used the AdamW optimizer and enabled FP16 (Half Precision) training to reduce memory consumption and accelerate computation. The Batch Size was reduced to 4 to prevent OOM errors.
 The fine-tuning was carried out in two sequential steps:
@@ -117,10 +123,35 @@ This step taught the model the specific speaking rhythm and prosody of my voice.
  
 The VITS module is essential because it is an end-to-end flow-based model utilizing a Conditional Variational Autoencoder (VAE) trained with Adversarial Learning (GAN), which is responsible for converting the semantic features into a high-fidelity raw waveform, thus guaranteeing the reconstruction of the speaker's specific timbre (Voiceprint).
 
+Zero-Shot Cloning
+Instead of using the trained model from the previous step, zero-shot model use pre-trained model. The only input is a 3 second audio.
+
+This encoder is trained during the model's pre-training phase on a massive and diverse dataset of voices. Its purpose is to extract a highly discriminative and generalizable Speaker Embedding (or Voiceprint) from any input audio.
+
+The tool provide these Pretrained Models [1]:
+
+Chinese Speech Pretrain
+Chinese-Roberta-WWM-Ext-Large
+BigVGAN
+eresnetv2
+
+The Speaker Embedding is a compact numerical vector that encapsulates the unique characteristics of a speaker's voice, such as pitch, timbre, and speaking style.
+
+Using the 3-Second Sample:
+
+When the user provides a brief 3-second speech sample, the Speaker Encoder instantly processes it. The encoder extracts the Speaker Embedding (audio token) from this sample.
+
+Instantaneous Synthesis:
+
+During the synthesis of new speech, this Speaker Embedding is provided as a conditional input (a condition vector) alongside the text features to the core TTS model (like VITS).
+
+The model uses this vector to instantly modulate its internal generation parameters, ensuring the output waveform is rendered with the target voice's timbre and acoustic characteristics.
+
+
 # Step 6: Creating Speech (Inference)
 Once the GPT module and the SoVITS decoder were fine-tuned, the final step was to generate new speech (inference).
-• Input: The system requires the new text (in the form of phonemes) and a short acoustic prompt (e.g., 3–10 seconds of my voice).
-• Process: The fine-tuned GPT module predicts the prosody and semantic features (T2S stage). These predicted features, along with the acoustic embedding extracted from the prompt, are fed into the VITS-based decoder (S2A stage). The decoder generates the final waveform, ensuring high-fidelity sound quality and accurate reproduction of my voice.
+• Input: The system requires the new text (in the form of phonemes).
+• Process: The fine-tuned GPT module or zero-shot module predicts the prosody and semantic features (T2S stage). These predicted features, along with the acoustic embedding extracted from the prompt, are fed into the VITS-based decoder (S2A stage). The decoder generates the final waveform, ensuring high-fidelity sound quality and accurate reproduction of my voice.
 
 Now I will share my final thoughts on this technology.
 
@@ -130,18 +161,29 @@ In this report, I examined the evolution of Text-to-Speech technology. It has be
 
 I find the system design very clever. They take different modules, like an engine and a transmission in a car, and combine them in smart ways to create something new and much better. The GPT-SoVITS model is a great example of this, using a GPT-style model for prosody and a VITS model for sound quality. Hearing my own generated voice for the first time was extremely exciting.
 
-One major challenge I noticed is the importance of data quality. For a model like GPT-SoVITS to work well, the one minute of audio you provide must be very clean, with no background noise. This is a practical engineering problem that users need to solve to achieve good results.
+I compared few-shot cloning with zero-shot cloning.
+
+Both models produce voices that sound quite similar to the original source, successfully replicating the timbre (voiceprint).
+
+However, the speech from the zero-shot model has a more generic or average intonation and prosody, showing a greater difference from the original sample's expressive style.
+
+In contrast, few-shot cloning is much better at capturing the speaker's specific speech rhythm, intonation, and emotion (affect), resulting in a higher level of realism or verisimilitude.
+
+However the cloned voice is easy to identify. The most noticeable of these artifacts is the metallic sound (or "ringing/buzzing").
+
+One major challenge I noticed is the importance of voice data quality. For a model like GPT-SoVITS to work well, the one minute of audio provide must be very clean, with no background noise with hi fidelity. This is a practical engineering problem that users need to solve to achieve good results. I record my audio in my room, and I use DJI micro mini with noise cancelling on to minize background noise.
 
 Another challenge is setting up the toolchain. I learned how to use Conda to manage my Python environment and libraries.
 
 Audio example：
 
 <audio controls>
-  <source src="output_audio/tts_survy_A02.mp3" type="audio/mp3">
+  <source src="output_audio/Few_shot_TTS_audio.wav" type="audio/wav">
 </audio>
 
-
-[Play audio](./output_audio/tts_survy_A02.mp3)
+<audio controls>
+  <source src="output_audio/Zero-shot_TTS_audio.wavv" type="audio/wav">
+</audio>
 
 
 
@@ -151,10 +193,11 @@ Compare:
 
 1. References
 
-* Tacotron 2: "Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions"
-* FastSpeech 2: "FastSpeech 2: Fast and High-Quality End-to-End Text to Speech"
-* VITS: "Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech"
-* VALL-E: "Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers"
-* GPT-SoVITS Project GitHub page
+[1] https://github.com/RVC-Boss/GPT-SoVITS
+[2] https://en.wikipedia.org/wiki/Retrieval-based_Voice_Conversion
+[3] Tacotron 2: "Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions"
+[4] FastSpeech 2: "FastSpeech 2: Fast and High-Quality End-to-End Text to Speech"
+[5] Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech
+[6] VALL-E: "Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers" 
 
 
