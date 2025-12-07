@@ -1,6 +1,20 @@
 ### Voice_Clone
 Voice clone demo. In this repo, I used a model called GPT-SoVITS [1] to clone my own voice. I will cover a little about literature and then we will go a step by step tutoria how I cloned my voice. I wanted to understand it like a complex machine, to see how all the parts work together.
 
+Here is what I got:
+
+Few-shot TTS:
+https://kkbin505.github.io/Voice_Clone/output_audio/Few_shot_TTS_audio.wav
+
+Zero-shot TTS:
+https://kkbin505.github.io/Voice_Clone/output_audio/Zero_shot_TTS_audio.wav
+
+Compare:
+
+time-series and mel-spectrogram comparison of me saying: I was very curious about how a computer can talk like a person.
+
+![alt text](pic/waveform.png)
+
 
 ## Literature Review: Advances in Voice Cloning and Zero-Shot TTS
 
@@ -175,23 +189,8 @@ One major challenge I noticed is the importance of voice data quality. For a mod
 
 Another challenge is setting up the toolchain. I learned how to use Conda to manage my Python environment and libraries.
 
-Audio example：
 
 
-<audio controls>
-  <source src="https://raw.githubusercontent.com/kkbin505/Voice_Clone/main/output_audio/Few_shot_TTS_audio.wav" type="audio/wav">
-  你的浏览器不支持 audio 标签。
-</audio>
-
-<audio controls>
-  <source src="https://raw.githubusercontent.com/kkbin505/Voice_Clone/main/output_audio/Zero-shot_TTS_audio.wav" type="audio/wav">
-</audio>
-
-
-
-Compare:
-
-![alt text](pic/waveform.png)
 
 1. References
 
