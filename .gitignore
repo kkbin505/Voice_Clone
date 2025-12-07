@@ -9,6 +9,7 @@ raw_audio/voice_sample.wav
 *.wav
 !Few_shot_TTS_audio.wav
 !Zero-shot_TTS_audio.wav
+!The_Review.wav
 
 Reference/
 
