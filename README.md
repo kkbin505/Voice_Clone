@@ -7,13 +7,17 @@ Few-shot TTS:
 https://kkbin505.github.io/Voice_Clone/output_audio/Few_shot_TTS_audio.wav
 
 Zero-shot TTS:
-https://kkbin505.github.io/Voice_Clone/output_audio/Zero_shot_TTS_audio.wav
+https://kkbin505.github.io/Voice_Clone/output_audio/Zero-shot_TTS_audio.wav
 
 Compare:
 
 time-series and mel-spectrogram comparison of me saying: I was very curious about how a computer can talk like a person.
 
 ![alt text](pic/waveform.png)
+
+The full audio version of this review:
+
+https://kkbin505.github.io/Voice_Clone/output_audio/The_Review.wav
 
 
 ## Literature Review: Advances in Voice Cloning and Zero-Shot TTS
